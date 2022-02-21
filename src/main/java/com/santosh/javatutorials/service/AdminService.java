@@ -24,23 +24,27 @@ public class AdminService implements IAdminService {
 
     @Override
     public List<TopicDto> topics() {
-        return Optional.ofNullable(adminRepository.findAll().stream().map(TopicDto::new).collect(Collectors.toList())).orElseThrow(()-> new MsApplicationException("record not found","record not found"));
+        return Optional.ofNullable(adminRepository.findAll().stream().map(TopicDto::new).collect(Collectors.toList())).orElseThrow(() -> new MsApplicationException("record not found", "record not found"));
     }
 
     @Override
     public List<TopicDto> topics(String name) {
-        return Optional.ofNullable(adminRepository.findByNameContaining(name).stream().map(TopicDto::new).collect(Collectors.toList())).orElseThrow(()-> new MsApplicationException("record not found","record not found for "+name));
+        return Optional.ofNullable(adminRepository.findByNameContaining(name).stream().map(TopicDto::new).collect(Collectors.toList())).orElseThrow(() -> new MsApplicationException("record not found", "record not found for " + name));
     }
 
     @Override
     public TopicDto topics(Long id) {
-        return new TopicDto(Optional.ofNullable(adminRepository.findById(id).get()).orElseThrow(()-> new MsApplicationException("record not found","record not found for "+id)));
+        return new TopicDto(Optional.ofNullable(adminRepository.findById(id).get()).orElseThrow(() -> new MsApplicationException("record not found", "record not found for " + id)));
     }
 
     @Override
     public void updateTopic(Long id, TopicDto request) {
-        TopicDto topic  = topics(id);
-        topic.setName(request.getName());
-        adminRepository.save(new Topic(topic));
+
+        if (adminRepository.existsById(id)) {
+            TopicDto topic = topics(id);
+            Optional.ofNullable(topic).orElseThrow(() -> new MsApplicationException("record not found", "record not found for this id" + id));
+            topic.setName(request.getName());
+            adminRepository.save(new Topic(topic));
+        }
     }
 }
