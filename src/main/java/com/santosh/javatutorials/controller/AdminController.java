@@ -3,19 +3,40 @@ package com.santosh.javatutorials.controller;
 import com.santosh.javatutorials.request.TopicDto;
 import com.santosh.javatutorials.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AdminController {
 
     @Autowired
-    IAdminService IAdminService;
+    IAdminService adminService;
 
     @PostMapping("/add-topic")
-    public String addTopic(@RequestBody TopicDto request){
-        IAdminService.addTopic(request);
+    public String addTopic(@RequestBody TopicDto request) {
+        adminService.addTopic(request);
         return "Topic Added Successfully";
+    }
+
+    @PutMapping("/update-topic/{id}")
+    public String addTopic(@PathVariable Long id,@RequestBody TopicDto request) {
+        adminService.updateTopic(id,request);
+        return "Topic Updated Successfully";
+    }
+
+    @GetMapping("/topics")
+    public List<TopicDto> topics() {
+        return adminService.topics();
+    }
+
+    @GetMapping("/topic")
+    public List<TopicDto> topics(@RequestParam("name") String name) {
+        return adminService.topics(name);
+    }
+
+    @GetMapping("/topic/{id}")
+    public TopicDto topics(@PathVariable Long id) {
+        return adminService.topics(id);
     }
 }
