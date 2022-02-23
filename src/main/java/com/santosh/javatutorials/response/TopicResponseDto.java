@@ -1,10 +1,10 @@
-package com.santosh.javatutorials.request;
+package com.santosh.javatutorials.response;
 
-import com.santosh.javatutorials.entity.Menu;
 import com.santosh.javatutorials.entity.Topic;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -12,16 +12,14 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TopicDto {
-
-    @NotBlank(message = "name should not be blank or null")
-    @NotNull(message = "name should not be blank or null")
+public class TopicResponseDto {
+    private Long topicId;
     private String name;
     private String question;
     private String description;
-    private Long menuId;
 
-    public TopicDto(Topic topic) {
+    public TopicResponseDto(Topic topic) {
+        this.topicId = topic.getTopicId();
         this.name=topic.getName();
         this.question = topic.getQuestion();
         this.description = topic.getDescription();

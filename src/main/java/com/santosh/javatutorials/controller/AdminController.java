@@ -1,8 +1,12 @@
 package com.santosh.javatutorials.controller;
 
+import com.santosh.javatutorials.request.MenuDto;
 import com.santosh.javatutorials.request.TopicDto;
 import com.santosh.javatutorials.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,10 +18,16 @@ public class AdminController {
     @Autowired
     IAdminService adminService;
 
-    @PostMapping("/add-topic")
+    @PostMapping("/admin/add-topic")
     public String addTopic(@Valid @RequestBody TopicDto request) {
         adminService.addTopic(request);
         return "Topic Added Successfully";
+    }
+
+    @PostMapping("/add-menu")
+    public String addMenu(@Valid @RequestBody MenuDto request) {
+        adminService.addMenu(request);
+        return "Menu Added Successfully";
     }
 
     @PutMapping("/update-topic/{id}")

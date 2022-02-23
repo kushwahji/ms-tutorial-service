@@ -1,8 +1,11 @@
 package com.santosh.javatutorials.service;
 
+import com.santosh.javatutorials.entity.Menu;
 import com.santosh.javatutorials.entity.Topic;
 import com.santosh.javatutorials.exception.MsApplicationException;
 import com.santosh.javatutorials.repository.AdminRepository;
+import com.santosh.javatutorials.repository.MenuRepository;
+import com.santosh.javatutorials.request.MenuDto;
 import com.santosh.javatutorials.request.TopicDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,9 @@ public class AdminService implements IAdminService {
 
     @Autowired
     AdminRepository adminRepository;
+
+    @Autowired
+    MenuRepository menuRepository;
 
     @Override
     public void addTopic(TopicDto request) {
@@ -46,5 +52,10 @@ public class AdminService implements IAdminService {
             topic.setName(request.getName());
             adminRepository.save(new Topic(topic));
         }
+    }
+
+    @Override
+    public void addMenu(MenuDto request) {
+        menuRepository.save(new Menu(request));
     }
 }
