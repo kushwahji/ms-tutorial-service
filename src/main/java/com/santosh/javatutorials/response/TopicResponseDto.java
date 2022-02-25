@@ -17,11 +17,15 @@ public class TopicResponseDto {
     private String name;
     private String question;
     private String description;
+    private String image;
+    private Long menuId;
 
     public TopicResponseDto(Topic topic) {
         this.topicId = topic.getTopicId();
-        this.name=topic.getName();
+        this.name = topic.getName();
         this.question = topic.getQuestion();
         this.description = topic.getDescription();
+        this.image = topic.getImage();
+        this.menuId = topic.getMenuId();
     }
 }

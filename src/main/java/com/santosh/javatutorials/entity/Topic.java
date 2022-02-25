@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "topic")
 public class Topic {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long topicId;
@@ -33,6 +34,9 @@ public class Topic {
     @Column(name = "description",columnDefinition = "TEXT",nullable = false)
     private String description;
 
+    @Column(name = "path",nullable = false)
+    private String image;
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdOn;
@@ -46,6 +50,7 @@ public class Topic {
         this.name = request.getName();
         this.question = request.getQuestion();
         this.description = request.getDescription();
+        this.image = request.getImage();
         this.menuId = request.getMenuId();
         this.status=true;
     }

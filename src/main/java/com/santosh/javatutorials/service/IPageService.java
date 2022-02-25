@@ -6,9 +6,11 @@ import com.santosh.javatutorials.response.TopicResponseDto;
 import java.util.List;
 
 public interface IPageService {
-    List<TopicResponseDto> allTopic(Long menuId);
+    List<TopicResponseDto> allTopic(Long id);
 
     List<MenuResponseDto> allMenu();
 
     List<TopicResponseDto> allSearch(String search);
+
+    List<TopicResponseDto> allTopics(Long id);
 }

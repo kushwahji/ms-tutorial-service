@@ -1,16 +1,25 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Tutorial</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Java Tutorial | Learn Java Programming - Tech java</title>
+    <link rel="SHORTCUT ICON" href="https://static.javatpoint.com/images/favicon2.png">
+    <link rel="stylesheet" type="text/css" href="./css/link.css" />
+    <link rel="dns-prefetch" href="https://clients1.google.com">
+    <link rel="dns-prefetch" href="https://static.javatpoint.com">
+    <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://www.google.com">
+    <link rel="dns-prefetch" href="https://feedify.net">
+    <meta name="theme-color" content="#4CAF50"><meta property="og:title" content="Java Tutorial | Learn Java Programming - javaSpoint">
+    <meta property="og:description" content="Java Tutorial or Learn Core Java Tutorial or Java Programming Tutorials for beginners and professionals with core concepts and examples covers the basics and fundamentals of java technology.">
+    <meta name="keywords" content="java tutorial, core java tutorial, java programming, tutorials, beginners, professionals, introduction to java, core, concepts, example, java, language, basic, introduction"><meta name="description" content="Java Tutorial or Learn Core Java Tutorial or Java Programming Tutorials for beginners and professionals with core concepts and examples covers the basics and fundamentals of java technology."><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="canonical" href="https://www.javatpoint.com/java-tutorial">
+    <meta property="og:locale" content="en_US"><meta property="og:type" content="article">
+    <meta name="twitter:title" property="og:title" content="Java Tutorial | Learn Java Programming - Tech Java">
+    <meta name="twitter:description" property="og:description" content="Java Tutorial or Learn Core Java Tutorial or Java Programming Tutorials for beginners and professionals with core concepts and examples covers the basics and fundamentals of java technology."><meta property="og:url" content="https://www.javatpoint.com/java-tutorial"><meta property="og:site_name" content="www.javatpoint.com"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@pagejavatpoint"><meta name="twitter:domain" content="www.javatpoint.com"><meta name="twitter:creator" content="@pagejavatpoint">
 </head>
 <body>
-<form th:action="@{/addTopic}" th:object="${topic}" method="post" th:switch="${menus}">
+<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+<form th:action="@{/addTopic}" th:object="${topic}" method="post" th:switch="${menus}" enctype="multipart/form-data">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
 
@@ -22,7 +31,10 @@
 
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     <label for="name">Description</label>
-    <input type="text" th:field="*{description}" id="description" placeholder="Description">
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" th:field="*{description}" style="white-space: pre-wrap;" id="description" rows="3"></textarea>
+    </div>
     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
 
     <label for="name">Menu</label>
@@ -30,6 +42,12 @@
         <option value="Select Menu"></option>
         <option th:each="menu : ${menus}" th:value="${menu.menuId}" th:text="${menu.name}"></option>
     </select>
+    <div class="form-group">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" name="file"  accept="image/png, image/jpeg">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+    </div>
     <input type="submit" value="Add Topic">
 </form>
 </body>

@@ -19,11 +19,13 @@ public class TopicDto {
     private String name;
     private String question;
     private String description;
+    private String image;
     private Long menuId;
 
     public TopicDto(Topic topic) {
         this.name=topic.getName();
         this.question = topic.getQuestion();
+        this.image = topic.getImage();
         this.description = topic.getDescription();
     }
 }

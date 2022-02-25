@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface AdminRepository extends JpaRepository<Topic,Long> {
     List<Topic> findByNameContaining(String name);
 
-    List<TopicResponseDto> findByNameContainingAndDescriptionContaining(String search,String search1);
+    List<TopicResponseDto> findByNameContainingOrQuestionContainingOrDescriptionContaining(String search,String search2,String search3);
 }
