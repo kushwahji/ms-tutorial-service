@@ -112,3 +112,6 @@ text-align: center;
 .glyphicon-envelope:before {
   margin-right: 8px;
 }
+.p{
+text-align: justify;
+}
