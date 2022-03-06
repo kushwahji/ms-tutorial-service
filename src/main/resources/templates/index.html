@@ -81,8 +81,8 @@
 
 	<div class="container-fluid text-center-left">
 		<div class="row content">
-			<div class="col-sm-2 sidenav" th:each="topic : ${its_topics}">
-				<div>
+			<div class="col-sm-2 sidenav">
+		<div>
 					<h5 class="spanh2">
 						<span class="glyphicon glyphicon-ok" th:text="${topic.key}"></span>
 					</h5>
@@ -93,11 +93,14 @@
 					</p>
 				</div>
 			</div>
-			<div class="col-sm-8 text-left" th:each="topic : ${topics}">
-				<h2 th:text="${topic.name}"></h2>
+			<div class="col-sm-8 text-left">
+                        <div th:each="topic : ${topics}">
+		
+                        <h2 th:text="${topic.name}"></h2>
 				<p th:utext="${topic.description}"></p>
 				<hr>
 			</div>
+                        </div>
 			<div class="col-sm-2 sidenav">
 				<div class="well">
 					<p>ADS</p>
