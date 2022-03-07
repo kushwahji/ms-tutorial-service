@@ -1,12 +1,13 @@
 package com.santosh.javatutorials.request;
 
-import com.santosh.javatutorials.entity.Menu;
 import com.santosh.javatutorials.entity.Topic;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 
 
 @Data
@@ -15,17 +16,20 @@ import javax.validation.constraints.NotNull;
 public class TopicDto {
 
     @NotBlank(message = "name should not be blank or null")
-    @NotNull(message = "name should not be blank or null")
     private String name;
+    
+    @NotBlank(message = "question should not be blank or null")
     private String question;
+    
+    @NotBlank(message = "description should not be blank or null")
     private String description;
-    private String image;
+    
+    @Min(value = 1)
     private Long menuId;
 
     public TopicDto(Topic topic) {
         this.name=topic.getName();
         this.question = topic.getQuestion();
-        this.image = topic.getImage();
         this.description = topic.getDescription();
     }
 }
