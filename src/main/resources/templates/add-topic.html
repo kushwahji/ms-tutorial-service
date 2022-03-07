@@ -9,48 +9,53 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../css/site.css">
 <link rel="stylesheet" href="../css/link.css">
-<link rel="stylesheet" href="../js/richtext.min.css">
+<link rel="stylesheet" href="../css/richtext.min.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.richtext.js"></script>
 </head>
 <body>
-	<p th:text="${message}" th:if="${message ne null}"
-		class="alert alert-primary"></p>
-	<form th:action="@{/addTopic}" th:object="${topic}" method="post"
-		th:switch="${menus}" enctype="multipart/form-data">
-		<label for="name">Name</label>
-		<div class="form-group">
-			<input type="text" class="" th:field="*{name}" id="name"
-				placeholder="Name"> <span
-				th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-		</div>
-		<label for="name">Question</label>
-		<div class="form-group">
-			<span th:if="${#fields.hasErrors('question')}"
-				th:errors="*{question}"></span> <input type="text"
-				th:field="*{question}" id="question" placeholder="Question">
-			<span th:if="${#fields.hasErrors('question')}"
-				th:errors="*{question}"></span>
-		</div>
+	<div class="container-fluid">
+		<h1 align="center">Add Contents</h1>
+		<form th:action="@{/addTopic}" th:object="${topic}" method="post"
+			th:switch="${menus}" enctype="multipart/form-data">
+			<label for="name">Name</label>
+			<div class="form-group">
+				<input type="text" class="form-control" th:field="*{name}" id="name"
+					placeholder="Name"> <span
+					th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+			</div>
+			<label for="name">Question</label>
+			<div class="form-group">
+				<span th:if="${#fields.hasErrors('question')}"
+					th:errors="*{question}"></span> <input type="text"
+					class="form-control" th:field="*{question}" id="question"
+					placeholder="Question"> <span
+					th:if="${#fields.hasErrors('question')}" th:errors="*{question}"></span>
+			</div>
 
-		<label for="description">Description</label>
-		<div class="form-group">
-			<textarea class="form-control content" th:field="*{description}"
-				style="white-space: pre-wrap;" id="description" rows="3"></textarea>
-		</div>
+			<label for="description">Description</label>
+			<div class="form-group">
+				<textarea class="form-control content" th:field="*{description}"
+					style="white-space: pre-wrap;" id="description" rows="3"></textarea>
+			</div>
 
-		<span th:if="${#fields.hasErrors('description')}"
-			th:errors="*{description}"></span> <label for="name">Menu</label> <select
-			required th:field="*{menuId}">
-			<option value="Select Menu"></option>
-			<option th:each="menu : ${menus}" th:value="${menu.menuId}"
-				th:text="${menu.name}"></option>
-		</select> <input type="submit" value="Add Topic">
-	</form>
+			<span th:if="${#fields.hasErrors('description')}"
+				th:errors="*{description}"></span> <label for="name">Menu</label> <select
+				class="form-control" required th:field="*{menuId}">
+				<option value="Select Menu"></option>
+				<option th:each="menu : ${menus}" th:value="${menu.menuId}"
+					th:text="${menu.name}"></option>
+			</select>
+			<div class="form-group">
+				<input type="submit" class="btn btn-success" value="Add Topic">
+			</div>
+		</form>
+	</div>
 	<script>
-        $(document).ready(function() {
-            $('.content').richText();
-        });
-        </script>
+		$(document).ready(function() {
+			$('.content').richText();
+		});
+	</script>
 </body>

@@ -57,25 +57,21 @@
 					width="200" alt="Java Quicker Reviser"></a>
 			</div>
 
-			<form class="navbar-form navbar-right" method="get"
-				th:action="@{/index/?name='s'}">
-				<p th:if="${error}" class="error" th:text="${error}"></p>
+			<form class="navbar-form navbar-right" th:action="@{/index}">
 				<div class="input-group">
 					<input type="text" class="form-control" th:value="${name}"
-						name="name" title="name" placeholder="Search">
+						title="search" placeholder="Search">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="submit">
-							<span class="glyphicon glyphicon-search"></span>
+							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					</div>
 				</div>
 			</form>
 		</div>
-		<div class="collapse navbar-collapse navbar-custom" id="myNavbar"
-			th:switch="${menus}">
-			<ul class="nav navbar-nav" th:each="menu : ${menus}">
-				<li><a th:href="@{/index/(name='menu'+${menu.name})}"><span
-						th:text="${menu.name}"></span></a></li>
+		<div class="collapse navbar-collapse navbar-custom" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><a href="">Add Topic</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -84,28 +80,50 @@
 	<div class="container-fluid text-center-left">
 		<div class="row content">
 			<div class="col-sm-2 sidenav">
-				<div th:each="topic : ${its_topics}">
+				<div>
 					<p>
-						<span class="glyphicon glyphicon-hand-right"></span> <a
-							th:href="@{/index/(name=${topic.key})	}"> <span
-							th:text="${topic.key}"></span>
-						</a>
+						<span class="glyphicon glyphicon-plus"></span> <a href="/view">View
+							Topics </a>
+					</p>
+					<p>
+						<span class="glyphicon glyphicon-plus"></span> <a href="/view">View
+							Images </a>
+					</p>
+					<p>
+						<span class="glyphicon glyphicon-plus"></span> <a href="/view">Add
+							Topics </a>
+					</p>
+					<p>
+						<span class="glyphicon glyphicon-plus"></span> <a href="/view">Add
+							Images </a>
 					</p>
 				</div>
 			</div>
-			<div class="col-sm-8 text-left">
-				<div th:each="topic : ${topics}">
-					<p th:utext="${topic.description}"></p>
-					<hr>
-				</div>
-			</div>
-			<div class="col-sm-2 sidenav">
-				<div class="well">
-					<p></p>
-				</div>
-				<div class="well">
-					<p></p>
-				</div>
+			<div class="col-sm-10 text-left">
+				<table class="table table-responsive">
+
+					<td>ID</td>
+					<td>Name</td>
+					<td>Question</td>
+					<td>Description</td>
+					<td>Edit</td>
+					<td>Delete</td>
+
+					<tr th:each="topic : ${topics}">
+						<td th:text="${topic.topicId}" />
+						<td th:text="${topic.name}" />
+						<td th:text="${topic.question}" />
+						<td th:utext="${topic.description}" width="10%"/>
+						<td><a th:href="@{/income/edit/{id}(id=${topicId})}"
+							class="btn btn-primary"><span
+								class="glyphicon glyphicon-edit"></span></a>
+						</td>
+						<td><a th:href="@{/income/delete/{id}(id=${topicId})}"
+							class="btn btn-primary"><span
+								class="	glyphicon glyphicon-trash"> </span></a>
+					   </td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
