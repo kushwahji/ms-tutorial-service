@@ -7,40 +7,32 @@ import com.santosh.javatutorials.request.TopicDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "topic")
+@Document(collection = "topic")
 public class Topic {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long topicId;
 
-    @Column(name = "menu_id",nullable = false)
     private Long menuId;
 
-    @Column(name = "topic_name",nullable = false)
     private String name;
 
-    @Column(name = "question",nullable = false)
     private String question;
 
-    @Column(name = "description",columnDefinition = "TEXT",nullable = false)
     private String description;
     
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdOn;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedOn;
     private boolean status;
 
     public Topic(TopicDto request) {
@@ -49,17 +41,6 @@ public class Topic {
         this.description = request.getDescription();
         this.menuId = request.getMenuId();
         this.status=true;
+        this.createdOn = LocalDateTime.now();
     }
-
-
-    @PrePersist
-    public void prePersist() {
-        createdOn = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedOn = LocalDateTime.now();
-    }
-
 }
