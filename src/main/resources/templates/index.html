@@ -85,12 +85,13 @@
 		<div class="row content">
 			<div class="col-sm-2 sidenav">
 				<div th:each="topic : ${its_topics}">
-					<p>
-						<span class="glyphicon glyphicon-hand-right"></span> <a
+					<h4>
+						<span class="glyphicon glyphicon-hand-right"></span>
+ <a
 							th:href="@{/index/(name=${topic.key})	}"> <span
 							th:text="${topic.key}"></span>
 						</a>
-					</p>
+					</h4>
 				</div>
 			</div>
 			<div class="col-sm-8 p">
