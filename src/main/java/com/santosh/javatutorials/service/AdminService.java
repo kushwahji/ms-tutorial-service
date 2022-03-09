@@ -25,10 +25,11 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public void addTopic(TopicDto request) {
-		if(adminRepository.findAll().isEmpty()) {
-			adminRepository.save(new Topic(request,1L));
-		}else {
-			adminRepository.findAll().stream().map(m->adminRepository.save(new Topic(request,m.getMenuId()+1))).collect(Collectors.toList());
+		if (adminRepository.findAll().isEmpty()) {
+			adminRepository.save(new Topic(request, 1L));
+		} else {
+			adminRepository.findAll().stream().map(m -> adminRepository.save(new Topic(request, m.getMenuId() + 1)))
+					.collect(Collectors.toList());
 		}
 	}
 
@@ -60,22 +61,35 @@ public class AdminService implements IAdminService {
 			Optional.ofNullable(topic).orElseThrow(
 					() -> new MsApplicationException("record not found", "record not found for this id" + id));
 			topic.setName(request.getName());
-			if(adminRepository.findAll().isEmpty()) {
-				adminRepository.save(new Topic(topic,1L));
-			}else {
-				adminRepository.findAll().stream().map(m->adminRepository.save(new Topic(topic,m.getMenuId()+1))).collect(Collectors.toList());
-			}
+			adminRepository.save(new Topic(topic, autoTopicId()));
+
 		}
 	}
 
 	@Override
 	public void addMenu(MenuDto request) {
-		if (menuRepository.findAll().isEmpty()) {
-			menuRepository.save(new Menu(request, 1L));
-		} else {
-			menuRepository.findAll().stream()
-					.map(m -> menuRepository.save(new Menu(request, m.getMenuId().longValue() + 1)))
-					.collect(Collectors.toList());
+		menuRepository.save(new Menu(request, autoMenuId()));
+	}
+
+	public Long autoMenuId() {
+		Long id = 1L;
+		if (!menuRepository.findAll().isEmpty()) {
+			Menu menu = menuRepository.findTopByOrderByMenuIdDesc();
+			if (menu != null) {
+				return menu.getMenuId() + 1;
+			}
 		}
+		return id;
+	}
+
+	public Long autoTopicId() {
+		Long id = 1L;
+		if (!adminRepository.findAll().isEmpty()) {
+			Topic topic = adminRepository.findTopByOrderByTopicIdDesc();
+			if (topic != null) {
+				return topic.getMenuId() + 1;
+			}
+		}
+		return id;
 	}
 }
