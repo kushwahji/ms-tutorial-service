@@ -33,7 +33,7 @@ public class PageService implements IPageService {
 
 	@Override
 	public List<MenuResponseDto> allMenu() {
-		return menuRepository.findAll().stream().distinct().map(MenuResponseDto::new).collect(Collectors.toList());
+		return menuRepository.findAll().filter(f->f.isStatus()==true).stream().distinct().map(MenuResponseDto::new).collect(Collectors.toList());
 	}
 
 	public List<TopicResponseDto> allSearch(String search) {
