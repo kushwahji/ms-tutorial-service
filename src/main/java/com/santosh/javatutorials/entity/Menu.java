@@ -26,12 +26,12 @@ public class Menu {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdOn;
-    private int status;
+    private boolean status;
 
     public Menu(MenuDto request,Long menuId) {
         this.name = request.getName();
         this.menuId = menuId;
-        this.status=1;
+        this.status=true;
         this.createdOn = LocalDateTime.now();
     }
     }
