@@ -19,7 +19,7 @@ public class AdminController2 {
 	@Autowired
 	IPageService pageService;
 
-	@PostMapping("/addTopic")
+	@PostMapping("/add-topic")
 	public void addTopic(@RequestBody MenuDto req) {
 		 adminService.addMenu(req);
 	}

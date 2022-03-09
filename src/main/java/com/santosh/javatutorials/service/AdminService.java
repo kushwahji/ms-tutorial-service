@@ -17,45 +17,65 @@ import java.util.stream.Collectors;
 @Service
 public class AdminService implements IAdminService {
 
-    @Autowired
-    AdminRepository adminRepository;
+	@Autowired
+	AdminRepository adminRepository;
 
-    @Autowired
-    MenuRepository menuRepository;
+	@Autowired
+	MenuRepository menuRepository;
 
-    @Override
-    public void addTopic(TopicDto request) {
-        adminRepository.save(new Topic(request));
-    }
+	@Override
+	public void addTopic(TopicDto request) {
+		if(adminRepository.findAll().isEmpty()) {
+			adminRepository.save(new Topic(request,1L));
+		}else {
+			adminRepository.findAll().stream().map(m->adminRepository.save(new Topic(request,m.getMenuId()+1))).collect(Collectors.toList());
+		}
+	}
 
-    @Override
-    public List<TopicDto> topics() {
-        return Optional.ofNullable(adminRepository.findAll().stream().map(TopicDto::new).collect(Collectors.toList())).orElseThrow(() -> new MsApplicationException("record not found", "record not found"));
-    }
+	@Override
+	public List<TopicDto> topics() {
+		return Optional.ofNullable(adminRepository.findAll().stream().map(TopicDto::new).collect(Collectors.toList()))
+				.orElseThrow(() -> new MsApplicationException("record not found", "record not found"));
+	}
 
-    @Override
-    public List<TopicDto> topics(String name) {
-        return Optional.ofNullable(adminRepository.findByNameContaining(name).stream().map(TopicDto::new).collect(Collectors.toList())).orElseThrow(() -> new MsApplicationException("record not found", "record not found for " + name));
-    }
+	@Override
+	public List<TopicDto> topics(String name) {
+		return Optional
+				.ofNullable(adminRepository.findByNameContaining(name).stream().map(TopicDto::new)
+						.collect(Collectors.toList()))
+				.orElseThrow(() -> new MsApplicationException("record not found", "record not found for " + name));
+	}
 
-    @Override
-    public TopicDto topics(Long id) {
-        return new TopicDto(Optional.ofNullable(adminRepository.findById(id).get()).orElseThrow(() -> new MsApplicationException("record not found", "record not found for " + id)));
-    }
+	@Override
+	public TopicDto topics(Long id) {
+		return new TopicDto(Optional.ofNullable(adminRepository.findById(id).get())
+				.orElseThrow(() -> new MsApplicationException("record not found", "record not found for " + id)));
+	}
 
-    @Override
-    public void updateTopic(Long id, TopicDto request) {
+	@Override
+	public void updateTopic(Long id, TopicDto request) {
 
-        if (adminRepository.existsById(id)) {
-            TopicDto topic = topics(id);
-            Optional.ofNullable(topic).orElseThrow(() -> new MsApplicationException("record not found", "record not found for this id" + id));
-            topic.setName(request.getName());
-            adminRepository.save(new Topic(topic));
-        }
-    }
+		if (adminRepository.existsById(id)) {
+			TopicDto topic = topics(id);
+			Optional.ofNullable(topic).orElseThrow(
+					() -> new MsApplicationException("record not found", "record not found for this id" + id));
+			topic.setName(request.getName());
+			if(adminRepository.findAll().isEmpty()) {
+				adminRepository.save(new Topic(topic,1L));
+			}else {
+				adminRepository.findAll().stream().map(m->adminRepository.save(new Topic(topic,m.getMenuId()+1))).collect(Collectors.toList());
+			}
+		}
+	}
 
-    @Override
-    public void addMenu(MenuDto request) {
-        menuRepository.save(new Menu(request));
-    }
+	@Override
+	public void addMenu(MenuDto request) {
+		if (menuRepository.findAll().isEmpty()) {
+			menuRepository.save(new Menu(request, 1L));
+		} else {
+			menuRepository.findAll().stream()
+					.map(m -> menuRepository.save(new Menu(request, m.getMenuId().longValue() + 1)))
+					.collect(Collectors.toList());
+		}
+	}
 }

@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Document(collection = "menu")
 public class Menu {
     @Id
+    private String id;
     private Long menuId;
 
     private String name;
@@ -27,8 +28,9 @@ public class Menu {
     private LocalDateTime createdOn;
     private boolean status;
 
-    public Menu(MenuDto request) {
+    public Menu(MenuDto request,Long menuId) {
         this.name = request.getName();
+        this.menuId = menuId;
         this.status=true;
         this.createdOn = LocalDateTime.now();
     }

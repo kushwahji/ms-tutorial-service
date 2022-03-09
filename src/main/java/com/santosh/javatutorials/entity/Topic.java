@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
 public class Topic {
 
     @Id
+    private String id;
+    
     private Long topicId;
 
     private Long menuId;
@@ -35,8 +37,9 @@ public class Topic {
 
     private boolean status;
 
-    public Topic(TopicDto request) {
+    public Topic(TopicDto request, Long tId) {
         this.name = request.getName();
+        this.topicId = tId;
         this.question = request.getQuestion();
         this.description = request.getDescription();
         this.menuId = request.getMenuId();

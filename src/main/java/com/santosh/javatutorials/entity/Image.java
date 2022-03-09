@@ -20,7 +20,9 @@ import lombok.NoArgsConstructor;
 public class Image {
 
 	@Id
-	private Long id;
+	private String id;
+	
+	private Long imgId;
 	
     private String imagePath;
     
