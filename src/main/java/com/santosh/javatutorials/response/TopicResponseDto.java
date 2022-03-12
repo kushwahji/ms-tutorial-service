@@ -14,6 +14,7 @@ public class TopicResponseDto {
     private String name;
     private String question;
     private String description;
+    private boolean status;
     private Long menuId;
 
     public TopicResponseDto(Topic topic) {
@@ -22,5 +23,6 @@ public class TopicResponseDto {
         this.question = topic.getQuestion();
         this.description = topic.getDescription();
         this.menuId = topic.getMenuId();
+        this.status = topic.isStatus();
     }
 }

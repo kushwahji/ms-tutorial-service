@@ -19,12 +19,17 @@ public class PageController {
 	@GetMapping({ "/", "/index" })
 	public String topic(@RequestParam(value = "name",defaultValue = "menuCore Java") String name, Model model) {
 		model.addAttribute("menus", pageService.allMenu());
-		if (pageService.allTopic(name).isEmpty() || pageService.sideBar(name).isEmpty()) {
+		if (pageService.allTopic(name).isEmpty()) {
 			model.addAttribute("error", "No Data Present");
 		}
-	
+		model.addAttribute("ads", pageService.getAds());
 		model.addAttribute("topics", pageService.allTopic(name));
-		model.addAttribute("its_topics", pageService.sideBar(name));
+		model.addAttribute("its_topics", pageService.allSide(name));
 		return "index";
+	}
+	
+	@GetMapping("/403")
+	public String error403() {
+		return "/403";
 	}
 }

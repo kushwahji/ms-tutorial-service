@@ -6,7 +6,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MenuRepository extends MongoRepository<Menu,Long> {
-	Menu findByName(String name);
+	Menu findByNameAndStatusTrue(String name);
 
 	Menu findTopByOrderByMenuIdDesc();
+
+	void deleteByMenuId(long id);
+
+	Menu findByMenuId(long id);
+
 }

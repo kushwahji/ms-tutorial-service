@@ -20,7 +20,6 @@ public class Menu {
     @Id
     private String id;
     private Long menuId;
-
     private String name;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -31,7 +30,7 @@ public class Menu {
     public Menu(MenuDto request,Long menuId) {
         this.name = request.getName();
         this.menuId = menuId;
-        this.status=true;
+        this.status = true;
         this.createdOn = LocalDateTime.now();
     }
     }

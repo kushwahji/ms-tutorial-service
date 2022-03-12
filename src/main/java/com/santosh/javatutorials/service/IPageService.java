@@ -1,24 +1,33 @@
 package com.santosh.javatutorials.service;
 
-import com.santosh.javatutorials.request.ImageDto;
+import com.santosh.javatutorials.request.TopicDto;
+import com.santosh.javatutorials.response.AdverstiseDtoResponse;
 import com.santosh.javatutorials.response.MenuResponseDto;
 import com.santosh.javatutorials.response.TopicResponseDto;
-
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public interface IPageService {
     List<TopicResponseDto> allTopic(String name);
 
     List<MenuResponseDto> allMenu();
 
-    List<TopicResponseDto> allSearch(String search);
-
-	String addImages(MultipartFile file, ImageDto req);
-
 	List<TopicResponseDto> allTopic();
 
-	Map<String, List<TopicResponseDto>> sideBar(String name);
+	MenuResponseDto getMenu(long id);
+
+	TopicResponseDto getTopic(long id);
+
+	List<TopicDto> topics();
+
+	List<TopicDto> topics(String name);
+
+	TopicDto topics(Long id);
+
+	 List<MenuResponseDto> menus();
+
+	List<String> allSide(String name);
+
+	List<AdverstiseDtoResponse> getAds();
+
+	AdverstiseDtoResponse getAds(long id);
 }

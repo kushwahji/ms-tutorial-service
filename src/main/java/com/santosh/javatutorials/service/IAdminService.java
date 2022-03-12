@@ -1,20 +1,32 @@
 package com.santosh.javatutorials.service;
 
+import com.santosh.javatutorials.entity.Adverstise;
+import com.santosh.javatutorials.request.ImageDto;
 import com.santosh.javatutorials.request.MenuDto;
 import com.santosh.javatutorials.request.TopicDto;
 
-import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IAdminService {
     void addTopic(TopicDto request);
 
-    List<TopicDto> topics();
-
-    List<TopicDto> topics(String name);
-
-    TopicDto topics(Long id);
-
-    void updateTopic(Long id, TopicDto request);
-
     void addMenu(MenuDto request);
+
+	void deleteMenu(long id);
+
+	void deleteTopic(long id);
+
+	String addImages(MultipartFile file, ImageDto req);
+
+	void updateStatus(int parseInt, boolean status);
+
+	void updateStatusTopic(int topicId, boolean status);
+
+	void deleteAdvertise(long id);
+
+	void addAdvertise(Adverstise req);
+
+	void updateStatusAdvertise(int adsId, boolean status);
+
 }
