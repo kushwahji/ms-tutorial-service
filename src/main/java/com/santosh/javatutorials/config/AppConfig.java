@@ -16,8 +16,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {
+
 	@Autowired
 	MongoDatabaseFactory mongoDbFactory;
+
 	@Autowired
 	MongoMappingContext mongoMappingContext;
 
@@ -26,14 +28,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/img/**", "/css/**", "/js/**").addResourceLocations("classpath:/templates/img/",
 				"classpath:/templates/css/", "classpath:/templates/js/");
 	}
-
+	
 	@Bean
 	public MappingMongoConverter mappingMongoConverter() {
-
 		DbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDbFactory);
 		MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, mongoMappingContext);
 		converter.setTypeMapper(new DefaultMongoTypeMapper(null));
-
 		return converter;
 	}
 }
