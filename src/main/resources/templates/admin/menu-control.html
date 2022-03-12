@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="admin/head :: head">
+<body class="sb-nav-fixed">
+	<nav th:replace="admin/header :: nav"></nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav th:replace="admin/side-bar :: nav"></nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h1 class="mt-4">Add Topic</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+						<li class="breadcrumb-item active">Topic</li>
+					</ol>
+					<div class="card mb-4">
+						<div class="card-body">
+							<form th:action="@{/addTopic}" th:object="${topic}" method="post"
+								th:switch="${menus}" enctype="multipart/form-data">
+								<fieldset th:each="group, groupStat : ${settings.groupList}">
+									<h2 th:text="${group.group}">Group</h2>
+
+									<input type="hidden" th:value="${group.group}"
+										th:name="${'groupList[' + groupStat.index + '].group'}" />
+
+									<th:block th:each="setting, settingStat : ${group.settingList}">
+										<div class="row form-group">
+											<div class="col-sm-8">
+												<label th:text="${setting.label}">Label</label>
+											</div>
+											<div class="col-sm-4">
+												<input type="hidden" th:value="${setting.label}"
+													th:name="${'groupList[' + groupStat.index + '].settingList[' + settingStat.index + '].label'}" />
+												<input type="checkbox" data-toggle="toggle"
+													th:checked="${setting.value}"
+													th:name="${'groupList[' + groupStat.index + '].settingList[' + settingStat.index + '].value'}" />
+											</div>
+										</div>
+
+									</th:block>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			$('.content').richText();
+		});
+	</script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="../js/scripts.js"></script>
+</body>
+</html>
