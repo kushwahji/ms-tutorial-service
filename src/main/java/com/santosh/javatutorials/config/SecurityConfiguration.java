@@ -19,8 +19,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.csrf().disable().authorizeRequests().antMatchers("/", "/index/**", "/contact").permitAll()
-		.antMatchers("/admin/**").hasAnyRole("ADMIN").anyRequest()
+    	http.csrf().disable().authorizeRequests()
+    	.antMatchers("/", "/index/**", "/contact").permitAll()
+    	.antMatchers( "/css/**", "/img/**","/js/**", "/favicon.ico").permitAll()
+		.antMatchers("/admin/**").hasAnyRole("ADMIN")
+		.antMatchers("/user/**").hasAnyRole("USER").anyRequest()
 		.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll().and()
 		.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
@@ -29,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) throws Exception {
         auth.inMemoryAuthentication()
             .withUser("user")
-            .password(passwordEncoder.encode("password"))
+            .password(passwordEncoder.encode("myuser"))
             .roles("USER")
             .and()
             .withUser("admin")
@@ -39,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**");
+		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**,/img/favicon/**");
 	}
 
 }

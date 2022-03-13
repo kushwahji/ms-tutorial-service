@@ -121,7 +121,7 @@ public class PageService implements IPageService {
 
 	@Override
 	public List<AdverstiseDtoResponse> getAds() {
-		return advertiseRepositoy.findAll().stream().map(m->new AdverstiseDtoResponse(m)).collect(Collectors.toList());
+		return advertiseRepositoy.findAll().stream().map(AdverstiseDtoResponse::new).collect(Collectors.toList());
 	}
 
 	@Override

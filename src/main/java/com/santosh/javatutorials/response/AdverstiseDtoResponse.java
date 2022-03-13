@@ -15,11 +15,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class AdverstiseDtoResponse {
-	private Long id;
-	private String path;
+	private Long adsId;
+	private boolean status;
+	private String link;
 	
 	public AdverstiseDtoResponse(Adverstise m) {
-		this.path = m.getLink();
-		this.id = m.getAdsId();
+		this.link = m.getLink();
+		this.status = m.isStatus();
+		this.adsId = m.getAdsId();
 	}
 }

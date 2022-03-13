@@ -154,15 +154,15 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public void addAdvertise(Adverstise req) {
-		if (req != null && req.getAdsId()<0) {
+		if (req != null && null!= req.getAdsId() && req.getAdsId()>0) {
 			Adverstise ad = advertiseRepository.findByAdsId(req.getAdsId());
 			ad.setLink(req.getLink());
 			advertiseRepository.save(ad);
 		} else {
 			req.setAdsId(autoAdsId());
+			req.setStatus(true);
 			advertiseRepository.save(req);
 		}
-		advertiseRepository.save(req);
 	}
 	
 	@Override
