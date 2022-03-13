@@ -39,23 +39,36 @@
 												<td th:text="${topic.topicId}"></td>
 												<td th:text="${topic.name}"></td>
 												<td th:text="${topic.question}"></td>
-												<td><label class="switch"> <input
-														type="checkbox" th:value="${topic.topicId}"
-														th:checked="${topic.status}"
-														th:onclick="'javascript:settings(' + ${topic.topicId} + ', ' + ${topic.status} + ' );'" />
-														<span class="slider round"></span>
-												</label></td>
-												<td><a th:href="@{/tedit/{id}(id=${topic.topicId})}"><i
-														class="fa fa-edit"></i></a></td>
-												<td><a th:href="@{/tdelete/{id}(id=${topic.topicId})}"><i
-														class="fa fa-trash"></i></a></td>
+												<td>
+													<div sec:authorize="hasRole('ADMIN')">
+														<label class="switch"> <input type="checkbox"
+															th:value="${topic.topicId}" th:checked="${topic.status}"
+															th:onclick="'javascript:settings(' + ${topic.topicId} + ', ' + ${topic.status} + ' );'" />
+															<span class="slider round"></span>
+														</label>
+													</div>
+												</td>
+												<td>
+													<div sec:authorize="hasRole('ADMIN')">
+														<a th:href="@{/tedit/{id}(id=${topic.topicId})}"><i
+															class="fa fa-edit"></i></a>
+													</div>
+												</td>
+												<td>
+													<div sec:authorize="hasRole('ADMIN')">
+														<a th:href="@{/tdelete/{id}(id=${topic.topicId})}"><i
+															class="fa fa-trash"></i></a>
+													</div>
+												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<p>
-									<a th:href="@{/add-topic}">Add a new topic</a>
-								</p>
+								<div sec:authorize="hasRole('ADMIN')">
+									<p>
+										<a th:href="@{/add-topic}">Add a new topic</a>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>

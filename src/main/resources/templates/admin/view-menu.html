@@ -36,15 +36,28 @@
 									<tr th:each="menu : ${menus}">
 										<td th:text="${menu.menuId}"></td>
 										<td th:text="${menu.name}"></td>
-										<td><label class="switch"> <input type="checkbox"
-												th:value="${menu.menuId}" th:checked="${menu.status}"
-												th:onclick="'javascript:settings(' + ${menu.menuId} + ', ' + ${menu.status} + ' );'" />
-												<span class="slider round"></span>
-										</label></td>
-										<td><a th:href="@{/edit/{id}(id=${menu.menuId})}"><i
-												class="fa fa-edit"></i> </a></td>
-										<td><a th:href="@{/delete/{id}(id=${menu.menuId})}"><i
-												class="fa fa-trash"></i></a></td>
+										<td>
+											<div sec:authorize="hasRole('ADMIN')">
+												<label class="switch"> <input type="checkbox"
+													th:value="${menu.menuId}" th:checked="${menu.status}"
+													th:onclick="'javascript:settings(' + ${menu.menuId} + ', ' + ${menu.status} + ' );'" />
+													<span class="slider round"></span>
+												</label>
+											</div>
+										</td>
+										<td>
+											<div sec:authorize="hasRole('ADMIN')">
+												<a th:href="@{/edit/{id}(id=${menu.menuId})}"><i
+													class="fa fa-edit"></i> </a>
+											</div>
+										</td>
+										<td>
+											<div sec:authorize="hasRole('ADMIN')">
+												<a th:href="@{/delete/{id}(id=${menu.menuId})}"><i
+													class="fa fa-trash"></i></a>
+											</div>
+										</td>
+
 									</tr>
 								</tbody>
 							</table>

@@ -38,7 +38,7 @@
 										<td th:text="${ad.link}"></td>
 										<td><label class="switch"> <input type="checkbox"
 												th:value="${ad.adsId}" th:checked="${ad.status}"
-												th:onclick="'javascript:settings(' + ${ad.adsId} + ', ' + ${menu.status} + ' );'" />
+												th:onclick="'javascript:settings(' + ${ad.adsId} + ', ' + ${ad.status} + ' );'" />
 												<span class="slider round"></span>
 										</label></td>
 										<td><a th:href="@{/aedit/{id}(id=${ad.adsId})}"><i
@@ -60,7 +60,7 @@
 	<script src="../js/scripts.js"></script>
 	<script type="text/javascript">
 		function settings(id, status) {
-			window.location = '/update/' + id + '?status=' + status;
+			window.location = '/aupdate/' + id + '?status=' + status;
 		}
 	</script>
 </body>
